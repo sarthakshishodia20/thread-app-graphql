@@ -1,19 +1,11 @@
-import { prismaClient } from "../../lib/db.js";
+import UserService, { type CreateUserPayload } from "../../services/userService.js";
 
 export const mutations = {
     createUser: async (
         _: unknown,
-        { firstName, lastName, email, password }: { firstName: string; lastName: string; email: string; password: string }
+        payload: CreateUserPayload
     ) => {
-        await prismaClient.user.create({
-            data: {
-                firstName,
-                lastName,
-                email,
-                password,
-                salt: "randomSALT",
-            }
-        });
+        await UserService.createUser(payload);
         return true;
     }
 };

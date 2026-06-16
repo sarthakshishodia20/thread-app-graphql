@@ -10,6 +10,7 @@ export const typeDefs = `#graphql
   type Query {
     hello: String
     say(name: String): String
+    getUserToken(email: String!, password: String!): String
   }
 
   type Mutation {
