@@ -11,6 +11,14 @@ export const typeDefs = `#graphql
     hello: String
     say(name: String): String
     getUserToken(email: String!, password: String!): String
+    getCurrentLoggedInUser: CurrentUser
+  }
+  type CurrentUser{
+    id: String!
+    firstName: String!
+    lastName : String
+    email: String
+    profileImageUrl: String
   }
 
   type Mutation {

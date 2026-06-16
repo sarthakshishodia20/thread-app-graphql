@@ -59,6 +59,19 @@ class UserService {
         const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET);
         return token;
     }
+    public static decodeToken(token?: string) {
+        if (!token) return null;
+        try {
+            const actualToken = token.startsWith("Bearer ") ? (token.split(" ")[1] || "") : token;
+            return jwt.verify(actualToken, JWT_SECRET) as unknown as { id: string; email: string };
+        } catch {
+            return null;
+        }
+    }
+
+    public static getUserById(id: string) {
+        return prismaClient.user.findUnique({ where: { id } });
+    }
 }
 
 export default UserService;

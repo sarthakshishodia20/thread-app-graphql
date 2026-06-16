@@ -1,6 +1,7 @@
 import express from "express";
 import { expressMiddleware } from "@as-integrations/express5";
 import { createGqlServer } from "./graphql/index.js";
+import UserService from "./services/userService.js";
 
 
 async function init(){
@@ -19,7 +20,16 @@ app.get("/", (req, res) => {
 const gqlServer= await createGqlServer();
 await gqlServer.start();
 
-app.use("/graphql",expressMiddleware(gqlServer));
+app.use(
+    "/graphql",
+    expressMiddleware(gqlServer, {
+        context: async ({ req }) => {
+            const token = req.headers["authorization"];
+            const user = UserService.decodeToken(token);
+            return { user };
+        },
+    })
+);
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
