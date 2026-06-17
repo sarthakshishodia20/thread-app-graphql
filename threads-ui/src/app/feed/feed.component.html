@@ -1,0 +1,51 @@
+<div class="feed-container fade-in">
+  <div class="feed-header">
+    <h1>🧵 Feed</h1>
+    <a routerLink="/create" class="create-btn" id="feed-create-link">+ New Post</a>
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-state" *ngIf="loading">
+    <div class="spinner" style="width:32px;height:32px;border-width:3px;"></div>
+    <p>Posts load ho rahe hain...</p>
+  </div>
+
+  <!-- Error State -->
+  <div class="error-state" *ngIf="errorMsg && !loading">
+    <p>⚠️ {{ errorMsg }}</p>
+    <button (click)="loadPosts()">Retry</button>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="!loading && !errorMsg && posts.length === 0">
+    <div class="empty-icon">📭</div>
+    <h3>Koi post nahi abhi</h3>
+    <p>Pehla post banao!</p>
+    <a routerLink="/create">Create Post</a>
+  </div>
+
+  <!-- Posts List -->
+  <div class="posts-list" *ngIf="!loading && posts.length > 0">
+    <div class="post-card" *ngFor="let post of posts" [attr.id]="'post-' + post.id">
+
+      <!-- Post Header -->
+      <div class="post-header">
+        <div class="author-avatar">{{ getInitials(post.authorId) }}</div>
+        <div class="author-meta">
+          <div class="author-id">{{ post.authorId | slice:0:12 }}...</div>
+          <div class="post-time">{{ formatDate(post.createdAt) }}</div>
+        </div>
+      </div>
+
+      <!-- Post Content -->
+      <div class="post-content">
+        {{ post.content }}
+      </div>
+
+      <!-- Post Image (if exists) -->
+      <div class="post-image" *ngIf="post.imageUrl">
+        <img [src]="post.imageUrl" alt="Post image" />
+      </div>
+    </div>
+  </div>
+</div>

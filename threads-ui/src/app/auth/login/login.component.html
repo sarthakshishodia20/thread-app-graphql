@@ -1,0 +1,54 @@
+<div class="auth-container fade-in">
+  <div class="auth-card">
+    <!-- Logo / Brand -->
+    <div class="brand">
+      <div class="brand-icon">🧵</div>
+      <h1>Threads</h1>
+      <p class="brand-sub">Welcome back</p>
+    </div>
+
+    <!-- Form -->
+    <div class="form-group">
+      <label>Email</label>
+      <input
+        id="login-email"
+        class="form-input"
+        type="email"
+        placeholder="you@example.com"
+        [(ngModel)]="email"
+        (keyup.enter)="loginUser()"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input
+        id="login-password"
+        class="form-input"
+        type="password"
+        placeholder="••••••••"
+        [(ngModel)]="password"
+        (keyup.enter)="loginUser()"
+      />
+    </div>
+
+    <!-- Error -->
+    <div *ngIf="errorMsg" class="error-msg">⚠️ {{ errorMsg }}</div>
+
+    <!-- Submit -->
+    <button
+      id="login-btn"
+      class="btn-primary"
+      (click)="loginUser()"
+      [disabled]="loading"
+    >
+      <span *ngIf="!loading">Login</span>
+      <span *ngIf="loading" class="spinner"></span>
+    </button>
+
+    <!-- Redirect to Register -->
+    <p class="redirect-text">
+      Account nahi hai? <a routerLink="/register">Register karo</a>
+    </p>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<nav class="navbar">
+  <div class="nav-inner">
+    <!-- Logo -->
+    <a routerLink="/feed" class="nav-logo">🧵 Threads</a>
+
+    <!-- Links — sirf logged in hone pe dikhte hain -->
+    <div class="nav-links" *ngIf="authService.isLoggedIn()">
+      <a routerLink="/feed" routerLinkActive="active" id="nav-feed">Feed</a>
+      <a routerLink="/create" routerLinkActive="active" id="nav-create">+ Post</a>
+      <a routerLink="/profile" routerLinkActive="active" id="nav-profile">Profile</a>
+      <button id="nav-logout" class="logout-btn" (click)="logout()">Logout</button>
+    </div>
+
+    <!-- Bina login ke -->
+    <div class="nav-links" *ngIf="!authService.isLoggedIn()">
+      <a routerLink="/login" id="nav-login">Login</a>
+      <a routerLink="/register" id="nav-register" class="nav-cta">Register</a>
+    </div>
+  </div>
+</nav>

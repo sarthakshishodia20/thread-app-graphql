@@ -1,0 +1,44 @@
+<div class="create-container fade-in">
+  <div class="create-card">
+    <div class="create-header">
+      <h1>✍️ New Post</h1>
+      <a routerLink="/feed" class="back-link">← Back to Feed</a>
+    </div>
+
+    <div class="form-group">
+      <label>What's on your mind?</label>
+      <textarea
+        id="post-content"
+        class="form-input post-textarea"
+        placeholder="Apna thought share karo..."
+        [(ngModel)]="content"
+        rows="6"
+        [maxlength]="charLimit"
+      ></textarea>
+      <div class="char-count" [class.warning]="charsLeft < 50" [class.error-color]="charsLeft < 0">
+        {{ charsLeft }} characters left
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Image URL (Optional)</label>
+      <input
+        id="post-image-url"
+        class="form-input"
+        type="url"
+        placeholder="https://example.com/image.jpg"
+        [(ngModel)]="imageUrl"
+      />
+    </div>
+
+    <div *ngIf="errorMsg" class="error-msg">⚠️ {{ errorMsg }}</div>
+
+    <div class="action-row">
+      <a routerLink="/feed" class="cancel-btn">Cancel</a>
+      <button id="submit-post-btn" class="btn-primary submit-btn" (click)="submitPost()" [disabled]="loading || !content.trim()">
+        <span *ngIf="!loading">🚀 Post</span>
+        <span *ngIf="loading" class="spinner"></span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { expressMiddleware } from "@as-integrations/express5";
 import { createGqlServer } from "./graphql/index.js";
 import UserService from "./services/userService.js";
@@ -8,6 +9,7 @@ async function init(){
     const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
+app.use(cors({ origin: "http://localhost:4200", credentials: true }));
 
 
 app.get("/", (req, res) => {
